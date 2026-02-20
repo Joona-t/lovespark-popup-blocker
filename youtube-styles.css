@@ -1,0 +1,66 @@
+/* LoveSpark Popup Blocker — youtube-styles.css
+   Injected at document_start on *://*.youtube.com/* only.
+   Hides all YouTube ad UI elements before they render.
+*/
+
+/* ── Pre-roll / mid-roll video ad overlays ──────────────────────────────── */
+.ytp-ad-module,
+.ytp-ad-overlay-container,
+.ytp-ad-overlay-slot,
+.ytp-ad-image-overlay,
+.ytp-ad-text-overlay,
+.video-ads.ytp-ad-module,
+.ytp-ad-skip-button-container,
+.ytp-ad-preview-container,
+.ytp-ad-preview-slot,
+.ytp-ad-player-overlay,
+.ytp-ad-player-overlay-layout,
+.ytp-ad-player-overlay-instream-info,
+.ytp-ad-action-interstitial,
+.ytp-ad-action-interstitial-slot,
+.ytp-ad-progress,
+.ytp-ad-progress-list { display: none !important; }
+
+/* ── Ad badges on video thumbnails ─────────────────────────────────────── */
+ytd-display-ad-renderer,
+ytd-compact-promoted-item-renderer,
+ytd-promoted-sparkles-web-renderer,
+ytd-promoted-sparkles-text-search-renderer,
+ytd-search-pyv-renderer,
+ytd-in-feed-ad-layout-renderer { display: none !important; }
+
+/* ── Sidebar and banner ads ─────────────────────────────────────────────── */
+#player-ads,
+#masthead-ad,
+ytd-banner-promo-renderer,
+ytd-statement-banner-renderer,
+ytd-ad-slot-renderer,
+ytd-action-companion-ad-renderer,
+ytd-watch-next-secondary-results-renderer ytd-ad-slot-renderer { display: none !important; }
+
+/* ── Rich items that wrap ad slots ──────────────────────────────────────── */
+ytd-rich-item-renderer:has(ytd-ad-slot-renderer),
+ytd-rich-item-renderer:has(ytd-in-feed-ad-layout-renderer),
+ytd-rich-section-renderer:has(ytd-ad-slot-renderer) { display: none !important; }
+
+/* ── Promoted / branded video shelf ─────────────────────────────────────── */
+ytd-brand-video-singleton-renderer,
+ytd-brand-video-shelf-renderer,
+ytd-promoted-video-renderer,
+#related ytd-promoted-video-renderer { display: none !important; }
+
+/* ── Homepage sponsored sections ─────────────────────────────────────────── */
+ytd-rich-section-renderer[class*="promoted"],
+ytd-rich-section-renderer:has([is-background-color-enabled]) { display: none !important; }
+
+/* ── Shorts ads ──────────────────────────────────────────────────────────── */
+ytd-reel-shelf-renderer:has(ytd-ad-slot-renderer) { display: none !important; }
+
+/* ── Overlay info bar during ads ─────────────────────────────────────────── */
+.ytp-ce-element,
+.ytp-suggested-action,
+.ytp-suggested-action-badge { display: none !important; }
+
+/* ── "Visit advertiser" bottom bar ───────────────────────────────────────── */
+.ytp-ad-visit-advertiser-button,
+.ytp-ad-button-icon { display: none !important; }

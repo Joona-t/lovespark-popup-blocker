@@ -1,0 +1,219 @@
+/* LoveSpark Popup Blocker — popup.css */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:        #1a0a10;
+  --bg-card:   #260d18;
+  --pink-hot:  #FF69B4;
+  --pink-light:#FFB6C1;
+  --pink-dim:  #c04880;
+  --glow:      rgba(255, 105, 180, 0.45);
+  --text:      #FFB6C1;
+  --muted:     #8a4a65;
+}
+
+html, body {
+  width: 320px;
+  min-height: 200px;
+  background: var(--bg);
+  font-family: 'DM Mono', 'Courier New', monospace;
+  color: var(--text);
+  overflow: hidden;
+}
+
+.container {
+  padding: 18px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px var(--glow));
+}
+
+.title-block {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--pink-hot);
+  text-shadow: 0 0 10px var(--glow);
+  letter-spacing: 0.03em;
+}
+
+.subtitle {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Stats ───────────────────────────────────────────────────────────────── */
+
+.stats {
+  background: var(--bg-card);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgba(255, 105, 180, 0.12);
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--pink-hot);
+  text-shadow: 0 0 8px var(--glow);
+  min-width: 44px;
+  text-align: right;
+  transition: color 0.2s ease;
+  letter-spacing: -0.02em;
+}
+
+/* Tick animation when value updates */
+@keyframes tick {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.18); color: #fff; text-shadow: 0 0 14px #FF69B4; }
+  100% { transform: scale(1); }
+}
+
+.stat-value.ticked {
+  animation: tick 0.35s ease-out;
+}
+
+/* ── Divider ─────────────────────────────────────────────────────────────── */
+
+.divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 105, 180, 0.25) 30%,
+    rgba(255, 105, 180, 0.25) 70%,
+    transparent
+  );
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.peace-text {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  font-style: italic;
+}
+
+/* ── Toggle switch ───────────────────────────────────────────────────────── */
+
+.toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-wrap input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-track {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background: var(--muted);
+  border-radius: 10px;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+  flex-shrink: 0;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+/* Checked state */
+input[type="checkbox"]:checked + .toggle-track {
+  background: var(--pink-hot);
+  box-shadow: 0 0 10px var(--glow);
+}
+
+input[type="checkbox"]:checked + .toggle-track .toggle-thumb {
+  transform: translateX(16px);
+  box-shadow: 0 0 6px var(--glow), 0 1px 3px rgba(0,0,0,0.4);
+}
+
+.toggle-label {
+  font-size: 11px;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  min-width: 46px;
+}
+
+/* Disabled state — dim the whole popup */
+body.disabled .stats {
+  opacity: 0.45;
+}
+
+body.disabled .peace-text {
+  opacity: 0.5;
+}

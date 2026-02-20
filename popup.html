@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LoveSpark Popup Blocker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <img src="icons/icon-48.png" alt="LoveSpark" class="logo">
+      <div class="title-block">
+        <span class="title">LoveSpark</span>
+        <span class="subtitle">Popup Blocker</span>
+      </div>
+    </header>
+
+    <main class="stats">
+      <div class="stat-row" id="stat-popups">
+        <span class="stat-icon">&#128150;</span>
+        <span class="stat-label">popups blocked</span>
+        <span class="stat-value" id="val-popups">0</span>
+      </div>
+      <div class="stat-row" id="stat-yt">
+        <span class="stat-icon">&#127909;</span>
+        <span class="stat-label">YT ads skipped</span>
+        <span class="stat-value" id="val-yt">0</span>
+      </div>
+    </main>
+
+    <div class="divider"></div>
+
+    <footer class="footer">
+      <span class="peace-text">browse in peace</span>
+      <label class="toggle-wrap" aria-label="Enable or disable LoveSpark">
+        <input type="checkbox" id="toggle-enabled" checked>
+        <span class="toggle-track">
+          <span class="toggle-thumb"></span>
+        </span>
+        <span class="toggle-label" id="toggle-label">Enabled</span>
+      </label>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

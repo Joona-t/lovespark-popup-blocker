@@ -1,0 +1,85 @@
+/* LoveSpark Popup Blocker — content-styles.css
+   Injected at document_start on ALL pages.
+   Hides common ad containers without breaking legitimate content.
+*/
+
+/* ── Google AdSense ──────────────────────────────────────────────────────── */
+ins.adsbygoogle,
+ins.adsbygoogle[data-ad-status],
+ins.adsbygoogle[data-ad-status="filled"],
+.adsbygoogle-noablate { display: none !important; }
+
+/* ── Google Ad Manager / DFP ─────────────────────────────────────────────── */
+[id^="google_ads_iframe"],
+[id^="div-gpt-ad"],
+[id^="gpt_ad"],
+[id^="ad-slot-"],
+iframe[id^="google_ads_"],
+div[id^="google_ads_"] { display: none !important; }
+
+/* ── Common ad container class patterns ─────────────────────────────────── */
+/* Using :not() guards to avoid false positives on "address", "add", "upload" */
+[class*="ad-container" i]:not([class*="upload" i]):not([class*="address" i]):not([class*="download" i]):not([class*="add-" i]):not([class*="-add" i]),
+[class*="ad-wrapper" i]:not([class*="upload" i]):not([class*="address" i]),
+[class*="ad-banner" i]:not([class*="upload" i]),
+[class*="ad-slot" i]:not([class*="upload" i]):not([class*="payload" i]),
+[class*="ad-unit" i]:not([class*="upload" i]),
+[class*="ad-block" i]:not([class*="upload" i]):not([class*="adblock-notice" i]),
+[class*="advert-" i],
+[class*="-advert" i],
+[class*="advertisement" i]:not([class*="no-advertisement" i]),
+[class*="advertising" i]:not([class*="no-advertising" i]) { display: none !important; }
+
+/* ── Sponsored / promoted content ───────────────────────────────────────── */
+[class*="sponsored-content" i],
+[class*="sponsored-post" i],
+[class*="sponsored-article" i],
+[class*="promoted-content" i],
+[class*="promoted-post" i],
+[aria-label="Sponsored"],
+[aria-label="sponsored"],
+[data-ad="true"],
+[data-advertisement="true"] { display: none !important; }
+
+/* ── Third-party ad iframes ─────────────────────────────────────────────── */
+iframe[src*="doubleclick.net"],
+iframe[src*="googlesyndication.com"],
+iframe[src*="googleadservices.com"],
+iframe[src*="adnxs.com"],
+iframe[src*="rubiconproject.com"],
+iframe[src*="openx.net"],
+iframe[src*="pubmatic.com"],
+iframe[src*="casalemedia.com"],
+iframe[src*="criteo.com"],
+iframe[src*="taboola.com"],
+iframe[src*="outbrain.com"],
+iframe[src*="revcontent.com"],
+iframe[src*="mgid.com"],
+iframe[src*="popads.net"],
+iframe[src*="exoclick.com"],
+iframe[src*="adsterra.com"],
+iframe[id^="google_ads_"],
+iframe[name^="google_ads_"] { display: none !important; }
+
+/* ── Popup overlay backdrops ─────────────────────────────────────────────── */
+[class*="popup-overlay" i]:not([class*="cookie" i]):not([class*="modal-open" i]),
+[class*="interstitial-ad" i],
+[class*="overlay-ad" i],
+[class*="fullscreen-ad" i],
+[id*="interstitial" i]:not(style),
+[class*="exit-intent" i],
+[class*="exit_intent" i] { display: none !important; }
+
+/* ── Taboola / Outbrain widgets ─────────────────────────────────────────── */
+[id^="taboola-"],
+[class^="taboola-"],
+[id*="_taboola"],
+[id^="outbrain_"],
+[class*="OUTBRAIN"],
+.ob-widget { display: none !important; }
+
+/* ── Native ad labels ────────────────────────────────────────────────────── */
+[class*="native-ad" i],
+[class*="nativead" i],
+[class*="content-ad" i],
+[class*="contentad" i] { display: none !important; }

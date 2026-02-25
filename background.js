@@ -1,8 +1,7 @@
 // LoveSpark Popup Blocker — background.js (Service Worker)
 'use strict';
 
-// ── In-memory session counters (reset on service worker restart)
-let sessionPopups = 0;
+// ── In-memory session counter (reset on service worker restart)
 let sessionYTAds = 0;
 
 // Domains that are allowed to open popups (OAuth, payments, etc.)
@@ -11,9 +10,6 @@ const POPUP_ALLOWLIST = new Set([
   'appleid.apple.com', 'github.com', 'facebook.com', 'twitter.com', 'x.com',
   'auth0.com', 'okta.com', 'discord.com', 'twitch.tv', 'slack.com'
 ]);
-
-// Per-tab user interaction timestamps (for detecting script-initiated navigations)
-const tabLastClick = new Map();
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -119,62 +115,13 @@ async function initStorage() {
   await updateBadge();
 }
 
-// ── webNavigation: Catch script-opened tabs ────────────────────────────────
-
-chrome.webNavigation.onCreatedNavigationTarget.addListener(async (details) => {
-  if (!await getEnabled()) return;
-
-  const sourceTab = details.sourceTabId;
-  const sourceUrl = details.url || '';
-
-  // Allow if it's an allowlisted destination
-  if (isAllowlisted(sourceUrl)) return;
-
-  // Allow if the source tab had a user interaction within the last 2 seconds
-  const lastClick = tabLastClick.get(sourceTab);
-  if (lastClick && (Date.now() - lastClick) < 2000) return;
-
-  // Block: close the newly created tab
-  try {
-    await chrome.tabs.remove(details.tabId);
-    sessionPopups++;
-    await incrementStat('popupsBlockedTotal');
-    await updateBadge();
-  } catch (e) {
-    // Tab may have already closed or doesn't exist
-  }
-});
-
-// ── Track user clicks per tab ──────────────────────────────────────────────
-
-chrome.tabs.onActivated.addListener((activeInfo) => {
-  // Clean up old entries
-  const cutoff = Date.now() - 10000;
-  for (const [tabId, ts] of tabLastClick.entries()) {
-    if (ts < cutoff) tabLastClick.delete(tabId);
-  }
-});
-
-chrome.tabs.onRemoved.addListener((tabId) => {
-  tabLastClick.delete(tabId);
-});
-
 // ── Message handler ────────────────────────────────────────────────────────
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   (async () => {
     switch (message.action) {
-      case 'userClick': {
-        if (sender.tab?.id) {
-          tabLastClick.set(sender.tab.id, Date.now());
-        }
-        sendResponse({ ok: true });
-        break;
-      }
-
       case 'popupBlocked': {
         if (!await getEnabled()) { sendResponse({ ok: false }); break; }
-        sessionPopups++;
         const todayCount = await incrementStat('popupsBlockedTotal');
         await updateBadge();
         sendResponse({ ok: true, todayCount });

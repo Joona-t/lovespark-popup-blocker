@@ -27,8 +27,6 @@
     ['click', 'submit', 'keydown', 'touchend', 'pointerup'].forEach(function (evt) {
       document.addEventListener(evt, function () {
         _lastInteraction = Date.now();
-        // Notify the isolated world so background.js can update per-tab timestamp
-        window.postMessage({ __ls: 'userClick' }, '*');
       }, true);
     });
 
@@ -73,12 +71,6 @@
     if (event.source !== window || !event.data || !event.data.__ls) return;
 
     const msg = event.data;
-
-    if (msg.__ls === 'userClick') {
-      // Forward to background to update per-tab interaction timestamp
-      chrome.runtime.sendMessage({ action: 'userClick' }).catch(() => {});
-      return;
-    }
 
     if (msg.__ls === 'popupBlocked' && enabled) {
       chrome.runtime.sendMessage({

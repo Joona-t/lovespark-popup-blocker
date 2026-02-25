@@ -1,13 +1,10 @@
 {
   "manifest_version": 3,
   "name": "LoveSpark Popup Blocker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Block popups, redirects & YouTube ads. Browse in peace.",
   "permissions": [
     "declarativeNetRequest",
-    "declarativeNetRequestFeedback",
-    "tabs",
-    "webNavigation",
     "storage"
   ],
   "host_permissions": ["<all_urls>"],

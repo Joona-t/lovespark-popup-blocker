@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extName__",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "__MSG_extDescription__",
   "permissions": [
     "declarativeNetRequest",
@@ -81,6 +81,15 @@
   "icons": {
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "popup-blocker@lovespark.suite",
+      "data_collection_permissions": {
+        "is_exempt": true,
+        "justification": "This extension does not collect, transmit, or store any user data."
+      }
+    }
   },
   "default_locale": "en"
 }

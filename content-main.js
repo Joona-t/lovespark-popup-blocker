@@ -19,10 +19,19 @@ if (!window.__loveSparkInstalled) {
   // ── Popup allowlist — OAuth, payments, auth flows ─────────────────────────
 
   var POPUP_ALLOWLIST = [
-    'paypal.com', 'stripe.com', 'accounts.google.com',
-    'login.microsoftonline.com', 'appleid.apple.com', 'github.com',
-    'facebook.com', 'twitter.com', 'x.com', 'auth0.com', 'okta.com',
-    'discord.com', 'twitch.tv', 'slack.com', 'notion.so', 'linear.app'
+    // OAuth & SSO providers
+    'accounts.google.com', 'login.microsoftonline.com', 'appleid.apple.com',
+    'github.com', 'facebook.com', 'twitter.com', 'x.com',
+    'auth0.com', 'okta.com', 'duo.com',
+    // Payment & banking
+    'paypal.com', 'stripe.com', 'square.com', 'venmo.com',
+    'wise.com', 'transferwise.com', 'klarna.com', 'adyen.com',
+    'chase.com', 'wellsfargo.com', 'bankofamerica.com', 'citi.com',
+    'ally.com', 'fidelity.com', 'schwab.com', 'vanguard.com',
+    'coinbase.com', 'kraken.com', 'gemini.com', 'binance.com',
+    // Productivity & communication
+    'discord.com', 'twitch.tv', 'slack.com', 'notion.so', 'linear.app',
+    'zoom.us', 'meet.google.com'
   ];
 
   function isAllowlisted(url) {

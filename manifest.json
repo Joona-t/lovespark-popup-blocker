@@ -1,47 +1,73 @@
 {
   "manifest_version": 3,
-  "name": "LoveSpark Popup Blocker",
+  "name": "__MSG_extName__",
   "version": "1.0.3",
-  "description": "Block popups, redirects & YouTube ads. Browse in peace.",
+  "description": "__MSG_extDescription__",
   "permissions": [
     "declarativeNetRequest",
     "storage"
   ],
-  "host_permissions": ["<all_urls>"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "css": ["content-styles.css"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": [
+        "content-styles.css"
+      ],
       "run_at": "document_start"
     },
     {
-      "matches": ["<all_urls>"],
-      "js": ["content-main.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-main.js"
+      ],
       "run_at": "document_start",
       "world": "MAIN"
     },
     {
-      "matches": ["<all_urls>"],
-      "js": ["content-general.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-general.js"
+      ],
       "run_at": "document_start"
     },
     {
-      "matches": ["*://*.youtube.com/*"],
-      "css": ["youtube-styles.css"],
+      "matches": [
+        "*://*.youtube.com/*"
+      ],
+      "css": [
+        "youtube-styles.css"
+      ],
       "run_at": "document_start"
     },
     {
-      "matches": ["*://*.youtube.com/*"],
-      "js": ["content-youtube.js"],
+      "matches": [
+        "*://*.youtube.com/*"
+      ],
+      "js": [
+        "content-youtube.js"
+      ],
       "run_at": "document_idle"
     }
   ],
   "declarative_net_request": {
     "rule_resources": [
-      {"id": "ruleset_1", "enabled": true, "path": "rules.json"}
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
     ]
   },
   "action": {
@@ -55,5 +81,6 @@
   "icons": {
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
-  }
+  },
+  "default_locale": "en"
 }

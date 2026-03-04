@@ -4,30 +4,7 @@
 // ── In-memory session counter (reset on service worker restart)
 let sessionYTAds = 0;
 
-// Domains that are allowed to open popups (OAuth, payments, etc.)
-const POPUP_ALLOWLIST = new Set([
-  'paypal.com', 'stripe.com', 'accounts.google.com', 'login.microsoftonline.com',
-  'appleid.apple.com', 'github.com', 'facebook.com', 'twitter.com', 'x.com',
-  'auth0.com', 'okta.com', 'discord.com', 'twitch.tv', 'slack.com'
-]);
-
 // ── Helpers ────────────────────────────────────────────────────────────────
-
-function getDomain(url) {
-  try {
-    return new URL(url).hostname.replace(/^www\./, '');
-  } catch {
-    return '';
-  }
-}
-
-function isAllowlisted(url) {
-  const domain = getDomain(url);
-  for (const allowed of POPUP_ALLOWLIST) {
-    if (domain === allowed || domain.endsWith('.' + allowed)) return true;
-  }
-  return false;
-}
 
 async function getEnabled() {
   const data = await chrome.storage.local.get('isEnabled');

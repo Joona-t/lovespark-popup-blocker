@@ -7,22 +7,35 @@
 }
 
 :root {
-  --bg:        #1a0a10;
-  --bg-card:   #260d18;
-  --pink-hot:  #FF69B4;
-  --pink-light:#FFB6C1;
-  --pink-dim:  #c04880;
-  --glow:      rgba(255, 105, 180, 0.45);
-  --text:      #FFB6C1;
-  --muted:     #8a4a65;
+  --ls-bg-pink-light: #FDCFE1;
+  --ls-bg-pink: #F9A8C9;
+  --ls-bg-pink-deep: #F48CAF;
+  --ls-bg-gradient: linear-gradient(165deg, #FDCFE1 0%, #F9A8C9 40%, #F48CAF 100%);
+  --ls-glass: rgba(255, 255, 255, 0.45);
+  --ls-glass-light: rgba(255, 255, 255, 0.25);
+  --ls-glass-border: rgba(255, 255, 255, 0.4);
+  --ls-glass-strong: rgba(255, 255, 255, 0.6);
+  --ls-pink-accent: #E8457C;
+  --ls-pink-deep: #D63466;
+  --ls-white: #FFFFFF;
+  --ls-text-dark: #5C1A36;
+  --ls-text-muted: #9E4D6E;
+  --ls-text-white: #FFFFFF;
+  --ls-glow: 0 0 16px rgba(232, 69, 124, 0.3);
+  --ls-glow-strong: 0 0 24px rgba(232, 69, 124, 0.45);
+  --ls-glow-white: 0 0 16px rgba(255, 255, 255, 0.5);
+  --ls-radius: 14px;
+  --ls-radius-sm: 10px;
+  --ls-font-body: 'DM Mono', monospace;
+  --ls-font-display: 'Press Start 2P', cursive;
 }
 
 html, body {
   width: 320px;
   min-height: 200px;
-  background: var(--bg);
-  font-family: 'DM Mono', 'Courier New', monospace;
-  color: var(--text);
+  background: var(--ls-bg-gradient);
+  font-family: var(--ls-font-body);
+  color: var(--ls-text-dark);
   overflow: hidden;
 }
 
@@ -45,7 +58,7 @@ html, body {
   width: 36px;
   height: 36px;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 6px var(--glow));
+  filter: drop-shadow(0 0 6px var(--ls-glow));
 }
 
 .title-block {
@@ -57,15 +70,15 @@ html, body {
 .title {
   font-size: 15px;
   font-weight: 500;
-  color: var(--pink-hot);
-  text-shadow: 0 0 10px var(--glow);
+  color: var(--ls-pink-accent);
+  text-shadow: 0 0 10px var(--ls-glow);
   letter-spacing: 0.03em;
 }
 
 .subtitle {
   font-size: 10px;
   font-weight: 300;
-  color: var(--muted);
+  color: var(--ls-text-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -73,13 +86,14 @@ html, body {
 /* ── Stats ───────────────────────────────────────────────────────────────── */
 
 .stats {
-  background: var(--bg-card);
-  border-radius: 10px;
+  background: var(--ls-glass);
+  border-radius: var(--ls-radius-sm);
   padding: 14px 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border: 1px solid rgba(255, 105, 180, 0.12);
+  border: 1px solid var(--ls-glass-border);
+  backdrop-filter: blur(8px);
 }
 
 .stat-row {
@@ -97,7 +111,7 @@ html, body {
 
 .stat-label {
   font-size: 11px;
-  color: var(--muted);
+  color: var(--ls-text-muted);
   letter-spacing: 0.04em;
   flex: 1;
 }
@@ -105,8 +119,8 @@ html, body {
 .stat-value {
   font-size: 22px;
   font-weight: 500;
-  color: var(--pink-hot);
-  text-shadow: 0 0 8px var(--glow);
+  color: var(--ls-pink-accent);
+  text-shadow: 0 0 8px var(--ls-glow);
   min-width: 44px;
   text-align: right;
   transition: color 0.2s ease;
@@ -131,8 +145,8 @@ html, body {
   background: linear-gradient(
     to right,
     transparent,
-    rgba(255, 105, 180, 0.25) 30%,
-    rgba(255, 105, 180, 0.25) 70%,
+    var(--ls-glass-border) 30%,
+    var(--ls-glass-border) 70%,
     transparent
   );
 }
@@ -147,7 +161,7 @@ html, body {
 
 .peace-text {
   font-size: 10px;
-  color: var(--muted);
+  color: var(--ls-text-muted);
   letter-spacing: 0.06em;
   font-style: italic;
 }
@@ -173,7 +187,7 @@ html, body {
   position: relative;
   width: 36px;
   height: 20px;
-  background: var(--muted);
+  background: var(--ls-text-muted);
   border-radius: 10px;
   transition: background 0.25s ease, box-shadow 0.25s ease;
   flex-shrink: 0;
@@ -193,18 +207,18 @@ html, body {
 
 /* Checked state */
 input[type="checkbox"]:checked + .toggle-track {
-  background: var(--pink-hot);
-  box-shadow: 0 0 10px var(--glow);
+  background: var(--ls-pink-accent);
+  box-shadow: 0 0 10px var(--ls-glow);
 }
 
 input[type="checkbox"]:checked + .toggle-track .toggle-thumb {
   transform: translateX(16px);
-  box-shadow: 0 0 6px var(--glow), 0 1px 3px rgba(0,0,0,0.4);
+  box-shadow: 0 0 6px var(--ls-glow), 0 1px 3px rgba(0,0,0,0.4);
 }
 
 .toggle-label {
   font-size: 11px;
-  color: var(--text);
+  color: var(--ls-text-dark);
   letter-spacing: 0.04em;
   min-width: 46px;
 }
@@ -216,4 +230,62 @@ body.disabled .stats {
 
 body.disabled .peace-text {
   opacity: 0.5;
+}
+
+/* ── Dark Mode — LoveSpark Noir ─────────────────────── */
+:root[data-theme="dark"] {
+  --ls-bg-pink-light: #1a1128;
+  --ls-bg-pink: #110d1a;
+  --ls-bg-pink-deep: #0a0812;
+  --ls-bg-gradient: linear-gradient(165deg, #1a1128 0%, #110d1a 40%, #0a0812 100%);
+  --ls-glass: rgba(26, 15, 46, 0.85);
+  --ls-glass-light: rgba(26, 15, 46, 0.5);
+  --ls-glass-border: rgba(255, 110, 180, 0.13);
+  --ls-glass-strong: rgba(26, 15, 46, 0.95);
+  --ls-pink-accent: #ff6eb4;
+  --ls-pink-deep: #c2185b;
+  --ls-white: #f0e6f6;
+  --ls-text-dark: #f0e6f6;
+  --ls-text-muted: #9b7aac;
+  --ls-text-white: #ffffff;
+  --ls-glow: 0 0 20px rgba(255, 110, 180, 0.35), 0 0 60px rgba(255, 110, 180, 0.15);
+  --ls-glow-strong: 0 0 20px #ff6eb4, 0 0 40px rgba(255, 110, 180, 0.55);
+  --ls-glow-white: 0 0 16px rgba(240, 230, 246, 0.3);
+}
+
+body { transition: background 0.3s ease, color 0.3s ease; }
+
+[data-theme="dark"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 8% 15%, #ffffff55 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 60%, #ff6eb430 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 8%, #ffffff33 0%, transparent 100%),
+    radial-gradient(2px 2px at 75% 45%, #ff9fd325 0%, transparent 100%),
+    radial-gradient(1px 1px at 88% 78%, #ffffff22 0%, transparent 100%),
+    radial-gradient(1px 1px at 40% 88%, #ff6eb425 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.btn-dark-toggle {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 2px 4px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.btn-dark-toggle:hover { opacity: 1; }
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

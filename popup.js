@@ -1,6 +1,21 @@
 // LoveSpark Popup Blocker — popup.js
 'use strict';
 
+// Dark mode
+chrome.storage.local.get(['darkMode'], ({ darkMode }) => {
+  document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+  const btn = document.getElementById('btnDarkMode');
+  if (btn) btn.textContent = darkMode ? '☀️' : '🌙';
+});
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  chrome.storage.local.set({ darkMode: !isDark });
+  const btn = document.getElementById('btnDarkMode');
+  if (btn) btn.textContent = isDark ? '🌙' : '☀️';
+}
+document.getElementById('btnDarkMode').addEventListener('click', toggleTheme);
+
 const elPopups  = document.getElementById('val-popups');
 const elYT      = document.getElementById('val-yt');
 const toggle    = document.getElementById('toggle-enabled');

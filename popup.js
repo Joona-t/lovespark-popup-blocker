@@ -103,3 +103,6 @@ toggle.addEventListener('change', function () {
 // ── Init ───────────────────────────────────────────────────────────────────
 
 loadStats();
+
+/* ── Author / Ko-fi Footer ── */
+document.body.insertAdjacentHTML('beforeend', LoveSparkFooter.render());

@@ -16,7 +16,6 @@
 (function () {
   let enabled = true;
   let playerObserver = null;
-  let adCheckInterval = null;
 
   // ── Selector constants — update here when YouTube renames classes ─────────
 
@@ -142,33 +141,55 @@
     });
   }
 
-  // ── Polling fallback: catches ads the MutationObserver might miss ─────────
+  // ── Video event fallback: catches ads the MutationObserver might miss ─────
   // (e.g. if the script loads after .ad-showing was already set, or if
   // YouTube fires no class mutation on mid-roll start in some versions).
+  // Listens for video events (play, loadeddata) rather than polling.
   // Reports via the same reportSkip() path with the same dedup guard,
   // so it never double-counts with the observer.
 
-  function startPolling() {
-    if (adCheckInterval) clearInterval(adCheckInterval);
-    adCheckInterval = setInterval(function () {
-      if (!enabled) return;
-      if (attemptSkip()) {
-        reportSkip(); // dedup guard inside reportSkip() prevents double-count
-      }
-    }, 500);
+  function onVideoEvent() {
+    if (!enabled) return;
+    if (attemptSkip()) {
+      reportSkip();
+    }
+  }
+
+  let boundVideo = null;
+
+  function bindVideoEvents() {
+    const video = document.querySelector('video');
+    if (!video || video === boundVideo) return;
+    if (boundVideo) unbindVideoEvents();
+    boundVideo = video;
+    video.addEventListener('play', onVideoEvent);
+    video.addEventListener('loadeddata', onVideoEvent);
+    video.addEventListener('durationchange', onVideoEvent);
+  }
+
+  function unbindVideoEvents() {
+    if (boundVideo) {
+      boundVideo.removeEventListener('play', onVideoEvent);
+      boundVideo.removeEventListener('loadeddata', onVideoEvent);
+      boundVideo.removeEventListener('durationchange', onVideoEvent);
+      boundVideo = null;
+    }
   }
 
   // ── YouTube SPA navigation ────────────────────────────────────────────────
 
   function reinitialize() {
-    setTimeout(observePlayer, 800); // let new page DOM settle
+    setTimeout(function () {
+      observePlayer();
+      bindVideoEvents();
+    }, 800); // let new page DOM settle
   }
 
   // ── Init / Teardown ───────────────────────────────────────────────────────
 
   function init() {
     observePlayer();
-    startPolling();
+    bindVideoEvents();
     document.addEventListener('yt-navigate-finish', reinitialize);
     document.addEventListener('yt-page-data-updated', reinitialize);
     // Check immediately in case the script loaded mid-ad
@@ -177,7 +198,7 @@
 
   function teardown() {
     if (playerObserver) { playerObserver.disconnect(); playerObserver = null; }
-    if (adCheckInterval) { clearInterval(adCheckInterval); adCheckInterval = null; }
+    unbindVideoEvents();
     document.removeEventListener('yt-navigate-finish', reinitialize);
     document.removeEventListener('yt-page-data-updated', reinitialize);
   }

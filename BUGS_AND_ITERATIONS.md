@@ -1,6 +1,44 @@
 # Bugs & Iterations
 
-_No entries yet. Document bugs, fixes, and iterations here as they occur._
+## : |2026-02-20|||fix(youtube): accurate counter + dedup guard for ad skip reporting
+
+**Problem:** |2026-02-20|||fix(youtube): accurate counter + dedup guard for ad skip reporting
+**Details:** - Rename skipAd→attemptSkip, onAdSkipped→reportSkip for clarity
+- Fix polling fallback: was calling skipAd() but never reportSkip(),
+  so ads caught by the interval were silently skipped without counting
+- Add lastSkipReportedAt dedup guard (4s window) — MutationObserver
+  and polling could both fire for the same ad state, causing double-counts
+**Files:** content-youtube.js
+**Commit:** 25a4e1d
+
+## : |2026-03-05|||fix: theme title text visibility on beige (#4a7c59 earthy green) and slate (#d4714e terracotta)
+
+**Problem:** |2026-03-05|||fix: theme title text visibility on beige (#4a7c59 earthy green) and slate (#d4714e terracotta)
+**Files:** manifest.json,popup.css
+**Commit:** 5899688
+
+## : |2026-02-25|||fix: remove tabs/webNavigation/feedback permissions, drop link-breaking webNav listener
+
+**Problem:** |2026-02-25|||fix: remove tabs/webNavigation/feedback permissions, drop link-breaking webNav listener
+**Details:** Strip three unnecessary permissions (tabs, webNavigation,
+declarativeNetRequestFeedback) for Chrome Web Store compliance.
+Delete the webNavigation.onCreatedNavigationTarget popup-blocking
+path that was closing user-initiated tabs. Popup blocking now
+relies solely on the content-script window.open override.
+**Files:** background.js,content-general.js,manifest.json
+**Commit:** 5a802f2
+
+## : |2026-03-05|||Fix theme dropdown: add missing CSS styles for styled dropdown menu
+
+**Problem:** |2026-03-05|||Fix theme dropdown: add missing CSS styles for styled dropdown menu
+**Files:** manifest.json,popup.css
+**Commit:** b965c5b
+
+## : |2026-03-05|||fix: replace broken footer with aesthetic ls-footer
+
+**Problem:** |2026-03-05|||fix: replace broken footer with aesthetic ls-footer
+**Files:** lib/lovespark-base.css,lib/lovespark-footer.css,lib/lovespark-footer.js,manifest.json,popup.html
+**Commit:** f39af46
 
 <!-- Format:
 ## YYYY-MM-DD: Short Title

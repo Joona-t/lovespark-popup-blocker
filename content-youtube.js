@@ -73,7 +73,7 @@
       try {
         video.currentTime = video.duration; // primary skip method
         didSkip = true;
-      } catch (_) {}
+      } catch (err) { console.warn('[lovespark-popup-blocker] unknown:', err); }
       video.muted = true; // immediate audio relief while seek propagates
     }
 
